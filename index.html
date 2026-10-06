@@ -45,7 +45,10 @@
         <section class="results-section" aria-labelledby="results-title">
           <div class="ranking-header">
             <h2 id="results-title">Peringkat calon</h2>
-            <div class="ranking-summary"><span id="ranking-count">0 CALON</span><span class="summary-separator" aria-hidden="true">•</span><span>TOTAL <strong id="total-votes">0</strong> SUARA</span></div>
+            <div class="ranking-actions">
+              <div class="ranking-summary"><span id="ranking-count">0 CALON</span><span class="summary-separator" aria-hidden="true">•</span><span>TOTAL <strong id="total-votes">0</strong> SUARA</span></div>
+              <button id="show-winner-button" class="winner-button" type="button" disabled>Tampilkan hasil ketua <span aria-hidden="true">↗</span></button>
+            </div>
           </div>
           <div id="candidate-results" class="candidate-results" aria-live="polite">
             <div class="empty-state"><span class="empty-icon" aria-hidden="true">◌</span><h3>Belum ada suara</h3><p>Ketik nama calon di atas untuk mulai mencatat.</p></div>
@@ -73,6 +76,16 @@
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <dialog id="winner-dialog" class="winner-dialog" aria-labelledby="winner-title">
+      <div class="winner-dialog-content">
+        <div class="winner-symbol" aria-hidden="true">✦</div>
+        <p class="winner-kicker">HASIL PEMILIHAN KETUA</p>
+        <h2 id="winner-title">Ketua Terpilih</h2>
+        <strong id="winner-name" class="winner-name"></strong>
+        <p id="winner-detail" class="winner-detail"></p>
+        <form method="dialog"><button class="winner-close-button" type="submit">Tutup hasil</button></form>
+      </div>
+    </dialog>
     <dialog id="reset-dialog" class="confirm-dialog"><form method="dialog"><div class="dialog-symbol" aria-hidden="true">!</div><h2>Hapus semua hasil?</h2><p>Seluruh nama dan suara di browser ini akan dihapus. Unduh cadangan terlebih dahulu jika ingin menyimpannya.</p><div class="dialog-actions"><button class="secondary-button" value="cancel">Batal</button><button class="danger-button danger-filled" value="confirm">Ya, hapus semua</button></div></form></dialog>
   </body>
 </html>

@@ -1,6 +1,6 @@
 # Papan Suara
 
-Aplikasi web statis untuk mencatat suara pemilihan ketua. Ketik nama calon dan tekan **Tambah 1 suara**. Nama yang sama mendapat tambahan satu suara; nama baru muncul otomatis. Papan skor menampilkan peringkat, jumlah, dan persentase dengan tulisan besar. Daftar calon terus bertambah; gulir halaman untuk melihat calon keempat dan seterusnya pada layar yang lebih pendek.
+Aplikasi web statis untuk mencatat suara pemilihan ketua. Ketik nama calon dan tekan **Tambah 1 suara**. Nama yang sama mendapat tambahan satu suara; nama baru muncul otomatis. Papan skor menampilkan peringkat, jumlah, dan persentase dengan tulisan besar. Daftar calon terus bertambah; gulir halaman untuk melihat calon keempat dan seterusnya pada layar yang lebih pendek. Tombol **Tampilkan hasil ketua** menampilkan calon dengan suara tertinggi dalam tampilan besar.
 
 ## Cara memakai
 
@@ -8,7 +8,8 @@ Aplikasi web statis untuk mencatat suara pemilihan ketua. Ketik nama calon dan t
 2. Ketik nama calon, misalnya `Andy`, lalu tekan **Tambah 1 suara** atau Enter.
 3. Ulangi untuk suara berikutnya. `andy` dan ` Andy ` dihitung sebagai calon yang sama.
 4. Gunakan **Batalkan suara terakhir** jika entri terakhir keliru.
-5. Unduh cadangan secara berkala. Tombol **Pulihkan cadangan** akan mengganti hasil yang sedang tersimpan dengan berkas cadangan tersebut.
+5. Tekan **Tampilkan hasil ketua** untuk melihat nama ketua terpilih, jumlah suara, dan persentasenya berdasarkan suara saat itu. Jika suara tertinggi seri, aplikasi menampilkan status seri dan tidak menetapkan ketua tunggal. Setelah ada suara baru, tekan tombol lagi untuk melihat hasil terbaru.
+6. Unduh cadangan secara berkala. Tombol **Pulihkan cadangan** akan mengganti hasil yang sedang tersimpan dengan berkas cadangan tersebut.
 
 Data tersimpan di browser dan perangkat yang dipakai. Sebaiknya gunakan browser dan alamat situs yang sama sepanjang pemilihan. Bila data browser dibersihkan, gunakan berkas cadangan untuk memulihkannya. GitHub Pages hanya menyediakan halaman aplikasi, bukan sinkronisasi suara antarperangkat.
 

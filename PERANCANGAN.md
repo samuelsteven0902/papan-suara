@@ -21,8 +21,9 @@ Keputusan ini adalah asumsi kerja. Jika diperlukan sinkronisasi otomatis lintas 
 3. Calon baru dibuat otomatis dengan 1 suara.
 4. Tampilkan total suara, jumlah calon, peringkat, persentase, dan batang suara. Calon dengan suara tertinggi disorot; jika seri, status seri ditampilkan.
 5. Satu aksi terakhir dapat dibatalkan.
-6. Ekspor dan impor cadangan JSON.
-7. Hapus seluruh hasil dengan konfirmasi yang jelas.
+6. Tombol **Tampilkan hasil ketua** menampilkan calon dengan suara tertinggi sebagai ketua terpilih. Jika suara tertinggi seri, tampilkan para calon yang seri tanpa menetapkan ketua tunggal.
+7. Ekspor dan impor cadangan JSON.
+8. Hapus seluruh hasil dengan konfirmasi yang jelas.
 
 ## 4. Alur utama
 
@@ -57,6 +58,7 @@ flowchart LR
 │ │ 04  Dini     █                       2%        1 SUARA    │ │
 │ └───────────────────────────────────────────────────────────┘ │
 │ ... baris selanjutnya; halaman dapat digulir                   │
+│ [ Tampilkan hasil ketua ] → nama pemenang ditampilkan besar    │
 │ Batalkan suara terakhir · Unduh/Pulihkan cadangan · Hapus semua│
 └───────────────────────────────────────────────────────────────┘
 ```
@@ -74,6 +76,7 @@ Data tersimpan sebagai satu dokumen dengan versi, daftar calon, dan riwayat aksi
 - Nama kosong atau hanya spasi ditolak.
 - Panjang nama dibatasi 60 karakter.
 - Satu kiriman formulir = tepat satu suara.
+- Ketua terpilih dihitung dari suara yang tercatat ketika tombol hasil ditekan. Jika suara berubah, tekan tombol lagi untuk melihat hasil terbaru.
 - Persentase dihitung terhadap total suara dan dibulatkan untuk tampilan.
 - Impor hanya menerima format cadangan aplikasi yang valid; data tidak valid tidak menggantikan hasil yang ada.
 - Nama ditampilkan sebagai teks biasa agar masukan seperti HTML tidak dijalankan.
@@ -102,6 +105,7 @@ papan-suara/
 - Andy dimasukkan lagi dengan variasi kapital/spasi → Andy 2 suara, tanpa calon duplikat.
 - Bayu dimasukkan → Bayu 1 suara.
 - Calon keempat, kelima, dan seterusnya tampil sebagai baris baru; halaman dapat digulir tanpa baris terpotong atau disembunyikan.
+- Tombol hasil tidak aktif sebelum ada suara; setelah ada suara, pemenang tunggal tampil sebagai ketua. Pada hasil seri, aplikasi tidak menetapkan ketua tunggal.
 - Memuat ulang halaman mempertahankan hasil.
 - Batalkan mengembalikan tepat satu entri terakhir.
 - Cadangan yang diekspor dapat diimpor dan menghasilkan hitungan yang sama.

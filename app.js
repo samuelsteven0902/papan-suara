@@ -15,6 +15,11 @@
   const leaderStatus = document.querySelector("#leader-status");
   const rankingCount = document.querySelector("#ranking-count");
   const updatedLabel = document.querySelector("#updated-label");
+  const showWinnerButton = document.querySelector("#show-winner-button");
+  const winnerDialog = document.querySelector("#winner-dialog");
+  const winnerTitle = document.querySelector("#winner-title");
+  const winnerName = document.querySelector("#winner-name");
+  const winnerDetail = document.querySelector("#winner-detail");
   const undoButton = document.querySelector("#undo-button");
   const exportButton = document.querySelector("#export-button");
   const importButton = document.querySelector("#import-button");
@@ -103,6 +108,7 @@
     totalVotes.textContent = numberFormat.format(total);
     rankingCount.textContent = `${numberFormat.format(sorted.length)} CALON`;
     undoButton.disabled = !state.lastVoteId;
+    showWinnerButton.disabled = total === 0;
 
     if (leaders.length === 0) {
       leaderStatus.textContent = "Menunggu suara pertama.";
@@ -205,6 +211,22 @@
   });
 
   nameInput.addEventListener("input", () => showInputError(""));
+
+  showWinnerButton.addEventListener("click", () => {
+    if (state.candidates.length === 0) return;
+    const highest = Math.max(...state.candidates.map((candidate) => candidate.votes));
+    const leaders = state.candidates.filter((candidate) => candidate.votes === highest);
+    const total = state.candidates.reduce((sum, candidate) => sum + candidate.votes, 0);
+    const isTie = leaders.length > 1;
+
+    winnerDialog.classList.toggle("is-tie", isTie);
+    winnerTitle.textContent = isTie ? "Belum Ada Ketua Terpilih" : "Ketua Terpilih";
+    winnerName.textContent = isTie ? "Hasil seri" : leaders[0].name;
+    winnerDetail.textContent = isTie
+      ? `${leaders.map((candidate) => candidate.name).join(", ")} sama-sama mendapat ${numberFormat.format(highest)} suara. Lanjutkan pemilihan atau tentukan aturan pemecah seri.`
+      : `${numberFormat.format(highest)} dari ${numberFormat.format(total)} suara (${Math.round((highest / total) * 100)}%).`;
+    winnerDialog.showModal();
+  });
 
   undoButton.addEventListener("click", () => {
     if (!state.lastVoteId) return;
