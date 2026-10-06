@@ -1,6 +1,6 @@
 # Papan Suara
 
-Aplikasi web statis untuk mencatat suara pemilihan ketua. Ketik nama calon dan tekan **Tambah 1 suara**. Nama yang sama mendapat tambahan satu suara; nama baru muncul otomatis. Hasil langsung menampilkan peringkat, jumlah, dan persentase.
+Aplikasi web statis untuk mencatat suara pemilihan ketua. Ketik nama calon dan tekan **Tambah 1 suara**. Nama yang sama mendapat tambahan satu suara; nama baru muncul otomatis. Papan skor menampilkan peringkat, jumlah, dan persentase dengan tulisan besar. Daftar calon terus bertambah; gulir halaman untuk melihat calon keempat dan seterusnya pada layar yang lebih pendek.
 
 ## Cara memakai
 

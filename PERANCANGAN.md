@@ -6,7 +6,7 @@ Aplikasi web sederhana untuk mencatat suara pemilihan ketua secara langsung. Ope
 
 ## 2. Keputusan awal
 
-- **Platform:** web statis yang dapat dibuka di komputer atau ponsel dan dapat diunggah ke GitHub Pages.
+- **Platform:** web statis yang dapat dibuka di komputer atau ponsel dan dipublikasikan melalui Vercel.
 - **Penyimpanan:** `localStorage` di browser yang dipakai operator. Tidak ada database atau akun.
 - **Cadangan:** hasil dapat diunduh sebagai JSON dan dipulihkan melalui impor JSON.
 - **Operasi:** satu operator; formulir dan hasil berada pada layar yang sama.
@@ -36,31 +36,36 @@ flowchart LR
   E --> F[Perbarui visual hasil]
 ```
 
-## 5. Rancangan layar
+## 5. Rancangan layar saat ini: Papan Skor
 
 ```text
 ┌───────────────────────────────────────────────────────────────┐
-│ Papan Suara                            Tampilan layar          │
-│ Pemilihan Ketua                                               │
-│ Hasil langsung, satu suara setiap entri                       │
-├───────────────────────────────┬───────────────────────────────┤
-│ CATAT SUARA                   │ RINGKASAN                     │
-│ [ Nama calon...          ]    │ Total suara    Jumlah calon    │
-│ [ + Tambah 1 suara       ]    │ Pemimpin / status seri        │
-│                               │                               │
-│ Batalkan suara terakhir        │ PEROLEHAN SUARA               │
-│                               │ 1. Andy        12 suara  60% │
-│                               │    ████████████████           │
-│                               │ 2. Bayu         8 suara  40% │
-│                               │    ███████████                │
-├───────────────────────────────┴───────────────────────────────┤
-│ Unduh cadangan     Pulihkan cadangan     Hapus semua           │
+│ Papan Suara                                  Hasil langsung     │
+│ Hasil Pemilihan Ketua                                          │
+│ CATAT SUARA  [ Ketik nama calon... ] [ + Tambah 1 suara ]      │
+│ PERINGKAT CALON                   4 CALON · TOTAL 60 SUARA      │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 01  Samuel   ███████████████        50%       30 SUARA    │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 02  Andy     █████████              30%       18 SUARA    │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 03  Bayu     █████                  18%       11 SUARA    │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ 04  Dini     █                       2%        1 SUARA    │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ ... baris selanjutnya; halaman dapat digulir                   │
+│ Batalkan suara terakhir · Unduh/Pulihkan cadangan · Hapus semua│
 └───────────────────────────────────────────────────────────────┘
 ```
 
-**Arah visual:** latar gelap biru tua, panel terang, aksen ungu dan hijau mint. Angka suara dibuat besar agar terbaca dari jauh. Grafik batang sederhana lebih mudah dipahami daripada diagram lingkaran ketika calon bertambah.
+**Arah visual:** sesuai referensi Papan Skor yang dipilih pemilik proyek. Latar biru tua berkontras tinggi, setiap calon dalam baris terang, nama dan jumlah suara jauh lebih besar. Calon teratas diberi warna mint; grafik batang tetap terlihat.
 
-**Responsif:** di layar lebar formulir berada di kiri dan hasil di kanan; di ponsel keduanya tersusun vertikal.
+**Jumlah calon dinamis:** tidak ada batas tiga baris pada tampilan. Calon keempat dan seterusnya selalu dibuat sebagai baris baru. Halaman bertambah tinggi dan dapat digulir jika baris melebihi tinggi layar.
+
+**Responsif:** formulir horizontal pada desktop dan vertikal pada ponsel; daftar hasil tetap satu kolom dengan teks yang besar.
 
 ## 6. Data dan aturan
 
@@ -78,7 +83,7 @@ Data tersimpan sebagai satu dokumen dengan versi, daftar calon, dan riwayat aksi
 - Data `localStorage` tersimpan pada browser/perangkat dan alamat situs tertentu. Membuka situs dari perangkat lain tidak menampilkan hasil yang sama secara otomatis.
 - Membersihkan data browser dapat menghapus hasil. Unduh cadangan secara berkala selama pemilihan.
 - Aplikasi ini menghitung entri operator. Tanpa identitas pemilih, aplikasi tidak memverifikasi hak pilih atau mencegah seseorang dipilih dua kali.
-- GitHub Pages meng-host aplikasi statis; GitHub tidak menjadi tempat penyimpanan suara yang sedang berjalan.
+- Vercel meng-host aplikasi statis; GitHub dan Vercel tidak menjadi tempat penyimpanan suara yang sedang berjalan.
 
 ## 8. Struktur proyek
 
@@ -96,6 +101,7 @@ papan-suara/
 - Andy dimasukkan sekali → Andy 1 suara.
 - Andy dimasukkan lagi dengan variasi kapital/spasi → Andy 2 suara, tanpa calon duplikat.
 - Bayu dimasukkan → Bayu 1 suara.
+- Calon keempat, kelima, dan seterusnya tampil sebagai baris baru; halaman dapat digulir tanpa baris terpotong atau disembunyikan.
 - Memuat ulang halaman mempertahankan hasil.
 - Batalkan mengembalikan tepat satu entri terakhir.
 - Cadangan yang diekspor dapat diimpor dan menghasilkan hitungan yang sama.
@@ -107,7 +113,7 @@ papan-suara/
 2. Implementasikan pencatatan dan penyimpanan lokal.
 3. Tambahkan visual hasil dan cadangan.
 4. Uji skenario pada bagian 9.
-5. Siapkan panduan unggah ke repository GitHub dan publikasi GitHub Pages.
+5. Siapkan panduan unggah ke repository GitHub dan publikasi melalui Vercel.
 
 ## 11. Pertanyaan untuk pemilik proyek
 

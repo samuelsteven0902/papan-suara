@@ -12,9 +12,7 @@
   const inputError = document.querySelector("#input-error");
   const results = document.querySelector("#candidate-results");
   const totalVotes = document.querySelector("#total-votes");
-  const candidateCount = document.querySelector("#candidate-count");
-  const leaderName = document.querySelector("#leader-name");
-  const leaderCaption = document.querySelector("#leader-caption");
+  const leaderStatus = document.querySelector("#leader-status");
   const rankingCount = document.querySelector("#ranking-count");
   const updatedLabel = document.querySelector("#updated-label");
   const undoButton = document.querySelector("#undo-button");
@@ -103,19 +101,15 @@
     const leaders = sorted.filter((candidate) => candidate.votes === highest);
 
     totalVotes.textContent = numberFormat.format(total);
-    candidateCount.textContent = numberFormat.format(sorted.length);
     rankingCount.textContent = `${numberFormat.format(sorted.length)} CALON`;
     undoButton.disabled = !state.lastVoteId;
 
     if (leaders.length === 0) {
-      leaderName.textContent = "—";
-      leaderCaption.textContent = "Menunggu suara pertama";
+      leaderStatus.textContent = "Menunggu suara pertama.";
     } else if (leaders.length === 1) {
-      leaderName.textContent = leaders[0].name;
-      leaderCaption.textContent = `${numberFormat.format(highest)} suara · teratas`;
+      leaderStatus.textContent = `${leaders[0].name} memimpin dengan ${numberFormat.format(highest)} suara.`;
     } else {
-      leaderName.textContent = "Seri";
-      leaderCaption.textContent = `${leaders.length} calon · masing-masing ${numberFormat.format(highest)} suara`;
+      leaderStatus.textContent = `Seri: ${leaders.length} calon masing-masing mendapat ${numberFormat.format(highest)} suara.`;
     }
 
     updatedLabel.textContent = state.updatedAt && !Number.isNaN(Date.parse(state.updatedAt))
@@ -131,7 +125,7 @@
     if (sorted.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
-      empty.innerHTML = '<div class="empty-icon" aria-hidden="true">◌</div><h3>Belum ada suara</h3><p>Nama calon yang Anda masukkan akan tampil di sini.</p>';
+      empty.innerHTML = '<span class="empty-icon" aria-hidden="true">◌</span><h3>Belum ada suara</h3><p>Ketik nama calon di atas untuk mulai mencatat.</p>';
       results.replaceChildren(empty);
       return;
     }
@@ -139,11 +133,10 @@
     results.replaceChildren(...sorted.map((candidate, index) => {
       const row = document.createElement("article");
       row.className = `candidate-row${candidate.votes === highest ? " is-leader" : ""}`;
-      const top = document.createElement("div");
-      top.className = "candidate-top";
       const rank = document.createElement("span");
       rank.className = "candidate-rank";
       rank.textContent = String(index + 1).padStart(2, "0");
+      rank.setAttribute("aria-label", `Peringkat ${index + 1}`);
       const name = document.createElement("span");
       name.className = "candidate-name";
       name.textContent = candidate.name;
@@ -154,10 +147,6 @@
       const unit = document.createElement("span");
       unit.textContent = "suara";
       votes.append(count, unit);
-      top.append(rank, name, votes);
-
-      const progressLine = document.createElement("div");
-      progressLine.className = "candidate-progress-line";
       const track = document.createElement("div");
       track.className = "progress-track";
       track.setAttribute("role", "progressbar");
@@ -172,8 +161,7 @@
       const percent = document.createElement("span");
       percent.className = "candidate-percent";
       percent.textContent = `${Math.round((candidate.votes / total) * 100)}%`;
-      progressLine.append(track, percent);
-      row.append(top, progressLine);
+      row.append(rank, name, track, percent, votes);
       return row;
     }));
   }

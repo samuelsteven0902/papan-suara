@@ -3,83 +3,73 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#101936" />
-    <meta name="description" content="Papan suara pemilihan ketua yang sederhana, langsung, dan mudah dibaca." />
+    <meta name="theme-color" content="#0c1836" />
+    <meta name="description" content="Papan skor pemilihan ketua dengan nama calon dan jumlah suara yang mudah dibaca." />
     <title>Papan Suara — Pemilihan Ketua</title>
     <link rel="stylesheet" href="style.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
-    <div class="page-glow page-glow-one" aria-hidden="true"></div>
-    <div class="page-glow page-glow-two" aria-hidden="true"></div>
-
     <div class="app-shell">
       <header class="topbar">
         <a class="brand" href="./" aria-label="Papan Suara, kembali ke pencatatan">
           <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
           <span>Papan<span class="brand-accent">Suara</span></span>
         </a>
-        <div class="topbar-actions"><span class="live-label"><span class="live-dot" aria-hidden="true"></span>HASIL LANGSUNG</span><span class="device-label">Tersimpan di perangkat ini</span></div>
+        <div class="topbar-actions">
+          <span class="live-label"><span class="live-dot" aria-hidden="true"></span>HASIL LANGSUNG</span>
+          <span class="device-label">Tersimpan di perangkat ini</span>
+        </div>
       </header>
 
       <main>
-        <section class="hero" aria-labelledby="page-title">
+        <div class="heading-row">
           <div>
-            <p class="eyebrow"><span class="eyebrow-line"></span> DASHBOARD PEMILIHAN</p>
-            <h1 id="page-title">Pemilihan <em>Ketua.</em></h1>
-            <p class="hero-subtitle">Catat satu nama untuk satu suara. Lihat hasil berubah seketika.</p>
+            <p class="eyebrow">PAPAN SKOR PEMILIHAN</p>
+            <h1>Hasil Pemilihan Ketua</h1>
           </div>
-          <div class="hero-decoration" aria-hidden="true">
-            <div class="hero-ring hero-ring-one"></div>
-            <div class="hero-ring hero-ring-two"></div>
-            <div class="hero-vote">✦</div>
-          </div>
-        </section>
-
-        <div class="dashboard-grid">
-          <section class="entry-panel" aria-labelledby="entry-title">
-            <div class="panel-topline"><span class="step-label">01 / INPUT SUARA</span><span class="panel-spark" aria-hidden="true">✦</span></div>
-            <h2 id="entry-title">Siapa yang dipilih?</h2>
-            <p class="panel-description">Ketik nama calon. Nama baru akan muncul otomatis pada hasil.</p>
-            <form id="vote-form" autocomplete="off">
-              <label for="candidate-name">Nama calon</label>
-              <input id="candidate-name" name="candidate" type="text" maxlength="60" placeholder="Contoh: Andy" list="candidate-list" required autofocus />
-              <datalist id="candidate-list"></datalist>
-              <p id="input-error" class="input-error" role="alert" hidden></p>
-              <button class="primary-button" type="submit"><span class="button-plus" aria-hidden="true">+</span> Tambah 1 suara <span class="button-arrow" aria-hidden="true">→</span></button>
-            </form>
-            <div class="entry-bottom">
-              <div class="entry-note"><span class="note-icon" aria-hidden="true">i</span><span>Setiap kali tombol ditekan, satu suara dicatat.</span></div>
-              <button id="undo-button" class="text-button" type="button" disabled>↶ Batalkan suara terakhir</button>
-            </div>
-          </section>
-
-          <section class="results-panel" aria-labelledby="results-title">
-            <div class="results-heading">
-              <div><p class="section-kicker">02 / HASIL PEMILIHAN</p><h2 id="results-title">Perolehan suara</h2></div>
-              <span id="updated-label" class="updated-label">Belum ada suara</span>
-            </div>
-
-            <div class="stats-grid" aria-label="Ringkasan hasil">
-              <div class="stat-card stat-total"><span class="stat-label">TOTAL SUARA</span><strong id="total-votes" class="stat-value">0</strong><span class="stat-caption">suara telah dicatat</span></div>
-              <div class="stat-card"><span class="stat-label">JUMLAH CALON</span><strong id="candidate-count" class="stat-value">0</strong><span class="stat-caption">nama dalam daftar</span></div>
-              <div class="stat-card stat-leader"><span class="stat-label">POSISI TERATAS</span><strong id="leader-name" class="leader-value">—</strong><span id="leader-caption" class="stat-caption">Menunggu suara pertama</span></div>
-            </div>
-
-            <div class="ranking-header"><span>PERINGKAT CALON</span><span id="ranking-count">0 CALON</span></div>
-            <div id="candidate-results" class="candidate-results" aria-live="polite">
-              <div class="empty-state"><div class="empty-icon" aria-hidden="true">◌</div><h3>Belum ada suara</h3><p>Nama calon yang Anda masukkan akan tampil di sini.</p></div>
-            </div>
-          </section>
+          <span id="updated-label" class="updated-label">Belum ada suara</span>
         </div>
 
+        <section class="vote-panel" aria-labelledby="entry-title">
+          <h2 id="entry-title">Catat suara</h2>
+          <form id="vote-form" autocomplete="off">
+            <label for="candidate-name" class="sr-only">Nama calon</label>
+            <input id="candidate-name" name="candidate" type="text" maxlength="60" placeholder="Ketik nama calon..." list="candidate-list" required autofocus />
+            <datalist id="candidate-list"></datalist>
+            <button class="primary-button" type="submit"><span aria-hidden="true">+</span> Tambah 1 suara</button>
+          </form>
+          <p id="input-error" class="input-error" role="alert" hidden></p>
+        </section>
+
+        <section class="results-section" aria-labelledby="results-title">
+          <div class="ranking-header">
+            <h2 id="results-title">Peringkat calon</h2>
+            <div class="ranking-summary"><span id="ranking-count">0 CALON</span><span class="summary-separator" aria-hidden="true">•</span><span>TOTAL <strong id="total-votes">0</strong> SUARA</span></div>
+          </div>
+          <div id="candidate-results" class="candidate-results" aria-live="polite">
+            <div class="empty-state"><span class="empty-icon" aria-hidden="true">◌</span><h3>Belum ada suara</h3><p>Ketik nama calon di atas untuk mulai mencatat.</p></div>
+          </div>
+          <p id="leader-status" class="sr-only" aria-live="polite"></p>
+        </section>
+
+        <section class="control-strip" aria-label="Kontrol dan cadangan">
+          <div class="control-note"><span class="control-dot" aria-hidden="true"></span><span>Setiap nama yang baru akan muncul sebagai baris tambahan. Gulir halaman untuk melihat seluruh calon.</span></div>
+          <button id="undo-button" class="subtle-button" type="button" disabled>↶ Batalkan suara terakhir</button>
+        </section>
+
         <section class="data-tools" aria-labelledby="data-title">
-          <div><p class="section-kicker">DATA &amp; CADANGAN</p><h2 id="data-title">Simpan hasil dengan tenang.</h2><p>Data tersimpan di browser ini. Unduh cadangan agar mudah dipulihkan.</p></div>
-          <div class="tool-buttons"><button id="export-button" class="secondary-button" type="button">↓ Unduh cadangan</button><button id="import-button" class="secondary-button" type="button">↑ Pulihkan cadangan</button><button id="reset-button" class="danger-button" type="button">Hapus semua</button><input id="import-file" type="file" accept=".json,application/json" hidden /></div>
+          <div><h2 id="data-title">Cadangan hasil</h2><p>Data tersimpan di browser ini. Unduh cadangan selama pemilihan.</p></div>
+          <div class="tool-buttons">
+            <button id="export-button" class="secondary-button" type="button">↓ Unduh cadangan</button>
+            <button id="import-button" class="secondary-button" type="button">↑ Pulihkan cadangan</button>
+            <button id="reset-button" class="danger-button" type="button">Hapus semua</button>
+            <input id="import-file" type="file" accept=".json,application/json" hidden />
+          </div>
         </section>
       </main>
 
-      <footer><span>PAPAN SUARA <span class="footer-star">✦</span> PEMILIHAN KETUA</span><span>Dirancang untuk pencatatan yang jelas dan sederhana.</span></footer>
+      <footer><span>PAPAN SUARA <span class="footer-star">✦</span> PEMILIHAN KETUA</span><span>Nama calon dan angka suara dibuat besar agar mudah dibaca.</span></footer>
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
