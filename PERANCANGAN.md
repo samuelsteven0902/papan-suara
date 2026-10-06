@@ -16,7 +16,7 @@ Keputusan ini adalah asumsi kerja. Jika diperlukan sinkronisasi otomatis lintas 
 
 ## 3. Fitur versi pertama
 
-1. Ketik nama calon dan tekan Enter atau tombol **Tambah 1 suara**.
+1. Ketik nama calon baru dan tekan Enter atau tombol **Tambah 1 suara**. Untuk calon yang sudah ada, klik sekali pada baris calon untuk menambah satu suara. Baris menyala sejenak dengan tanda **+1** sebagai umpan balik.
 2. Nama dibandingkan tanpa membedakan huruf besar/kecil dan spasi berlebih. `Andy`, `andy`, dan ` Andy ` dihitung sebagai satu calon.
 3. Calon baru dibuat otomatis dengan 1 suara.
 4. Tampilkan total suara, jumlah calon, peringkat, persentase, dan batang suara. Calon dengan suara tertinggi disorot; jika seri, status seri ditampilkan.
@@ -76,6 +76,7 @@ Data tersimpan sebagai satu dokumen dengan versi, daftar calon, dan riwayat aksi
 - Nama kosong atau hanya spasi ditolak.
 - Panjang nama dibatasi 60 karakter.
 - Satu kiriman formulir = tepat satu suara.
+- Satu klik pada baris calon = tepat satu suara; aksi ini juga dapat dilakukan dengan keyboard. Baris yang baru dipilih dan angka suaranya diberi animasi singkat.
 - Ketua terpilih dihitung dari suara yang tercatat ketika tombol hasil ditekan. Jika suara berubah, tekan tombol lagi untuk melihat hasil terbaru.
 - Persentase dihitung terhadap total suara dan dibulatkan untuk tampilan.
 - Impor hanya menerima format cadangan aplikasi yang valid; data tidak valid tidak menggantikan hasil yang ada.
@@ -103,6 +104,7 @@ papan-suara/
 
 - Andy dimasukkan sekali → Andy 1 suara.
 - Andy dimasukkan lagi dengan variasi kapital/spasi → Andy 2 suara, tanpa calon duplikat.
+- Baris Andy diklik sekali → suara Andy bertambah tepat satu, tanda **+1** muncul, dan tombol pembatalan dapat mengembalikannya.
 - Bayu dimasukkan → Bayu 1 suara.
 - Calon keempat, kelima, dan seterusnya tampil sebagai baris baru; halaman dapat digulir tanpa baris terpotong atau disembunyikan.
 - Tombol hasil tidak aktif sebelum ada suara; setelah ada suara, pemenang tunggal tampil sebagai ketua. Pada hasil seri, aplikasi tidak menetapkan ketua tunggal.

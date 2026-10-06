@@ -1,12 +1,12 @@
 # Papan Suara
 
-Aplikasi web statis untuk mencatat suara pemilihan ketua. Ketik nama calon dan tekan **Tambah 1 suara**. Nama yang sama mendapat tambahan satu suara; nama baru muncul otomatis. Papan skor menampilkan peringkat, jumlah, dan persentase dengan tulisan besar. Daftar calon terus bertambah; gulir halaman untuk melihat calon keempat dan seterusnya pada layar yang lebih pendek. Tombol **Tampilkan hasil ketua** menampilkan calon dengan suara tertinggi dalam tampilan besar.
+Aplikasi web statis untuk mencatat suara pemilihan ketua. Ketik nama calon baru dan tekan **Tambah 1 suara**. Untuk calon yang sudah tampil, klik sekali pada baris namanya untuk menambah satu suara. Baris akan menyala sejenak dan menampilkan tanda **+1**. Papan skor menampilkan peringkat, jumlah, dan persentase dengan tulisan besar. Daftar calon terus bertambah; gulir halaman untuk melihat calon keempat dan seterusnya pada layar yang lebih pendek. Tombol **Tampilkan hasil ketua** menampilkan calon dengan suara tertinggi dalam tampilan besar.
 
 ## Cara memakai
 
 1. Buka alamat GitHub Pages setelah proyek dipublikasikan, atau jalankan server lokal seperti petunjuk di bawah.
 2. Ketik nama calon, misalnya `Andy`, lalu tekan **Tambah 1 suara** atau Enter.
-3. Ulangi untuk suara berikutnya. `andy` dan ` Andy ` dihitung sebagai calon yang sama.
+3. Untuk calon yang sudah ada, klik sekali baris namanya. Angka bertambah satu dan tanda **+1** muncul sebentar. Anda juga dapat mengetik lagi namanya; `andy` dan ` Andy ` dihitung sebagai calon yang sama.
 4. Gunakan **Batalkan suara terakhir** jika entri terakhir keliru.
 5. Tekan **Tampilkan hasil ketua** untuk melihat nama ketua terpilih, jumlah suara, dan persentasenya berdasarkan suara saat itu. Jika suara tertinggi seri, aplikasi menampilkan status seri dan tidak menetapkan ketua tunggal. Setelah ada suara baru, tekan tombol lagi untuk melihat hasil terbaru.
 6. Unduh cadangan secara berkala. Tombol **Pulihkan cadangan** akan mengganti hasil yang sedang tersimpan dengan berkas cadangan tersebut.

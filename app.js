@@ -137,8 +137,11 @@
     }
 
     results.replaceChildren(...sorted.map((candidate, index) => {
-      const row = document.createElement("article");
+      const row = document.createElement("button");
+      row.type = "button";
       row.className = `candidate-row${candidate.votes === highest ? " is-leader" : ""}`;
+      row.dataset.candidateId = candidate.id;
+      row.setAttribute("aria-label", `Tambah 1 suara untuk ${candidate.name}. Saat ini ${numberFormat.format(candidate.votes)} suara.`);
       const rank = document.createElement("span");
       rank.className = "candidate-rank";
       rank.textContent = String(index + 1).padStart(2, "0");
@@ -153,14 +156,14 @@
       const unit = document.createElement("span");
       unit.textContent = "suara";
       votes.append(count, unit);
-      const track = document.createElement("div");
+      const track = document.createElement("span");
       track.className = "progress-track";
       track.setAttribute("role", "progressbar");
       track.setAttribute("aria-label", `Persentase suara ${candidate.name}`);
       track.setAttribute("aria-valuemin", "0");
       track.setAttribute("aria-valuemax", String(total));
       track.setAttribute("aria-valuenow", String(candidate.votes));
-      const fill = document.createElement("div");
+      const fill = document.createElement("span");
       fill.className = "progress-fill";
       fill.style.width = `${(candidate.votes / total) * 100}%`;
       track.append(fill);
@@ -168,8 +171,49 @@
       percent.className = "candidate-percent";
       percent.textContent = `${Math.round((candidate.votes / total) * 100)}%`;
       row.append(rank, name, track, percent, votes);
+      row.addEventListener("click", (event) => {
+        const current = state.candidates.find((item) => item.id === candidate.id);
+        if (!current || !recordVote(current.name, current)) return;
+        const updatedRow = Array.from(results.querySelectorAll(".candidate-row"))
+          .find((item) => item.dataset.candidateId === current.id);
+        if (!updatedRow) return;
+        const feedback = document.createElement("span");
+        feedback.className = "vote-feedback";
+        feedback.setAttribute("aria-hidden", "true");
+        feedback.textContent = "+1";
+        updatedRow.append(feedback);
+        updatedRow.classList.add("just-voted");
+        if (event.detail === 0) updatedRow.focus({ preventScroll: true });
+        setTimeout(() => {
+          feedback.remove();
+          updatedRow.classList.remove("just-voted");
+        }, 1200);
+      });
       return row;
     }));
+  }
+
+  function recordVote(name, candidate = state.candidates.find((item) => nameKey(item.name) === nameKey(name))) {
+    if (candidate && candidate.votes >= MAX_VOTES_PER_CANDIDATE) {
+      showToast("Batas suara untuk calon ini telah tercapai.", true);
+      return false;
+    }
+    if (!candidate && state.candidates.length >= MAX_CANDIDATES) {
+      showToast("Batas jumlah calon telah tercapai.", true);
+      return false;
+    }
+    if (candidate) {
+      candidate.votes += 1;
+    } else {
+      candidate = { id: newId(), name, votes: 1 };
+      state.candidates.push(candidate);
+    }
+    state.lastVoteId = candidate.id;
+    state.updatedAt = new Date().toISOString();
+    const saved = saveState();
+    render();
+    showToast(saved ? `1 suara untuk ${candidate.name} berhasil dicatat.` : "Browser gagal menyimpan data. Unduh cadangan sebelum menutup halaman.", !saved);
+    return true;
   }
 
   form.addEventListener("submit", (event) => {
@@ -186,28 +230,9 @@
       return;
     }
     showInputError("");
-    let candidate = state.candidates.find((item) => nameKey(item.name) === nameKey(name));
-    if (candidate && candidate.votes >= MAX_VOTES_PER_CANDIDATE) {
-      showToast("Batas suara untuk calon ini telah tercapai.", true);
-      return;
-    }
-    if (!candidate && state.candidates.length >= MAX_CANDIDATES) {
-      showToast("Batas jumlah calon telah tercapai.", true);
-      return;
-    }
-    if (candidate) {
-      candidate.votes += 1;
-    } else {
-      candidate = { id: newId(), name, votes: 1 };
-      state.candidates.push(candidate);
-    }
-    state.lastVoteId = candidate.id;
-    state.updatedAt = new Date().toISOString();
-    const saved = saveState();
-    render();
+    if (!recordVote(name)) return;
     nameInput.value = "";
     nameInput.focus();
-    showToast(saved ? `1 suara untuk ${candidate.name} berhasil dicatat.` : "Browser gagal menyimpan data. Unduh cadangan sebelum menutup halaman.", !saved);
   });
 
   nameInput.addEventListener("input", () => showInputError(""));
