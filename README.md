@@ -24,20 +24,17 @@ Lalu buka `http://localhost:8000` pada browser. Tidak ada paket atau proses buil
 
 ## Repository GitHub
 
-Repository proyek: [samuelsteven0902/papan-suara](https://github.com/samuelsteven0902/papan-suara).
+Repository proyek: [samuelsteven0902/papan-suara](https://github.com/samuelsteven0902/papan-suara). Kelima berkas proyek sudah diunggah ke branch `main`.
 
-Jika ingin mengunggah atau memperbarui proyek melalui Terminal, jalankan perintah dari dalam folder `papan-suara` ini. Pada unggahan pertama:
+Untuk pembaruan berikutnya melalui Terminal, jalankan perintah dari dalam folder `papan-suara` ini:
 
 ```bash
-git init
 git add .
-git commit -m "Buat aplikasi papan suara"
-git branch -M main
-git remote add origin https://github.com/samuelsteven0902/papan-suara.git
-git push -u origin main
+git commit -m "Perbarui papan suara"
+git push
 ```
 
-Gunakan `git add .` agar semua berkas aplikasi ikut terunggah. Perintah `git add README.md` hanya akan mengunggah panduan dan membuat situs tidak lengkap. Untuk pembaruan selanjutnya, gunakan `git add .`, `git commit -m "Perbarui papan suara"`, lalu `git push`.
+Gunakan `git add .` agar semua berkas aplikasi yang berubah ikut terunggah. Perintah `git add README.md` saja hanya akan mengunggah panduan dan membuat situs tidak lengkap.
 
 ### Alternatif: unggah melalui situs GitHub
 
